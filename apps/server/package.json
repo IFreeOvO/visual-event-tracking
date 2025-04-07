@@ -1,6 +1,6 @@
 {
     "name": "tracer-server",
-    "version": "0.0.1",
+    "version": "0.0.0",
     "description": "埋点系统后端",
     "private": true,
     "scripts": {
