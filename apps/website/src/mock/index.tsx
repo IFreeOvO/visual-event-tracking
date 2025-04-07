@@ -21,7 +21,7 @@ function generateMockData(mock: MockAdapter) {
                 data: {
                     accessToken: faker.string.alphanumeric(32),
                     user: {
-                        id: faker.number.int(),
+                        id: faker.number.int(100),
                         username: faker.internet.userName(),
                     },
                 },
@@ -35,7 +35,7 @@ function generateMockData(mock: MockAdapter) {
             {
                 code: 200,
                 data: {
-                    id: faker.number.int(),
+                    id: faker.number.int(100),
                     username: faker.internet.userName(),
                     email: faker.internet.email(),
                     createdAt: faker.date.past().toISOString(),
@@ -1584,7 +1584,7 @@ function generateXPath() {
         'button',
         'a',
     ]
-    const depth = faker.number.int({ min: 3, max: 6 })
+    const depth = faker.number.int({ min: 1, max: 3 })
     const path = []
 
     for (let i = 0; i < depth; i++) {
@@ -1597,7 +1597,7 @@ function generateXPath() {
 }
 
 function generateRandomParams() {
-    const paramCount = faker.number.int({ min: 1, max: 5 })
+    const paramCount = faker.number.int({ min: 1, max: 3 })
     const params: Record<string, any> = {}
 
     for (let i = 0; i < paramCount; i++) {
@@ -1609,7 +1609,7 @@ function generateRandomParams() {
                 params[key] = faker.lorem.word()
                 break
             case 'number':
-                params[key] = faker.number.int(1000)
+                params[key] = faker.number.int(10)
                 break
             case 'boolean':
                 params[key] = faker.datatype.boolean()
