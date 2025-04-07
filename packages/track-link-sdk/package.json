@@ -6,6 +6,8 @@
         "globalName": "__TRACK_LINK_SDK__"
     },
     "type": "module",
+    "types": "dist/global.d.ts",
+    "module": "dist/es/main.js",
     "exports": {
         ".": {
             "types": "./dist/global.d.ts",
