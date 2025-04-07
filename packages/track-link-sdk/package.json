@@ -1,9 +1,12 @@
 {
     "name": "@ifreeovo/track-link-sdk",
-    "version": "1.0.0",
+    "version": "0.0.0",
     "description": "",
     "buildOptions": {
         "globalName": "__TRACK_LINK_SDK__"
+    },
+    "publishConfig": {
+        "access": "public"
     },
     "type": "module",
     "types": "dist/global.d.ts",
