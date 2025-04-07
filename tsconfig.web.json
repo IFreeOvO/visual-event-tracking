@@ -3,7 +3,7 @@
     "compilerOptions": {
         "composite": true,
         "module": "ESNext",
-        "target": "ES2015",
+        "target": "ES2020",
         "moduleResolution": "bundler",
         "jsx": "preserve",
         "lib": ["ESNext", "DOM", "DOM.Iterable"]

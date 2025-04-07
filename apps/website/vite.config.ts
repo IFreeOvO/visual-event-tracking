@@ -64,13 +64,11 @@ export default defineConfig({
     },
     optimizeDeps: {
         esbuildOptions: {
-            supported: {
-                bigint: true, // 处理Big integer literals are not available 问题。github-action能复现，其他场景复现不了
-            },
+            target: 'es2020', // 处理Big integer literals are not available 问题。github-action能复现，其他场景复现不了
         },
     },
     build: {
-        target: 'es2015',
+        target: 'es2020',
         minify: isDev ? false : 'esbuild',
         assetsInlineLimit: 1024 * 10,
         rollupOptions: {
