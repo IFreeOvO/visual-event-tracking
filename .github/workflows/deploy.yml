@@ -54,9 +54,11 @@ jobs:
       - name: 安装依赖
         run: pnpm install --frozen-lockfile
       - name: 构建
-        run: pnpm --filter website build:mock
+        run: pnpm --filter tracking-system build:mock
+      - name: 查看当前目录
+        run: pwd
       - name: 复制dist
-        run: cp -r dist apps/website/dist/
+        run: cp -r ./apps/website/dist apps/website/dist/
         
       - name: Setup Pages
         uses: actions/configure-pages@v5
