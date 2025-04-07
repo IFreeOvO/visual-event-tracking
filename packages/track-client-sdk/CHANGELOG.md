@@ -1,5 +1,11 @@
 # @ifreeovo/track-client-sdk
 
+## 1.0.0
+
+### Major Changes
+
+- f0e0078: 支持埋点
+
 ## 2.0.0
 
 ### Major Changes
