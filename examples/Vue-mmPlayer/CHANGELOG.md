@@ -1,5 +1,13 @@
 # vue-mmplayer
 
+## 1.8.6
+
+### Patch Changes
+
+- Updated dependencies [3bc192f]
+  - @ifreeovo/track-client-sdk@1.0.0
+  - @ifreeovo/track-link-sdk@1.0.0
+
 ## 1.8.5
 
 ### Patch Changes

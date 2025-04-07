@@ -1,5 +1,12 @@
 # vue-test-project
 
+## 0.0.3
+
+### Patch Changes
+
+- Updated dependencies [3bc192f]
+    - @ifreeovo/track-link-sdk@1.0.0
+
 ## 0.0.2
 
 ### Patch Changes
