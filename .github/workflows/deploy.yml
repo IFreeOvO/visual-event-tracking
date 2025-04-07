@@ -1,5 +1,5 @@
 # Simple workflow for deploying static content to GitHub Pages
-name: Deploy static content to Pages
+name: deploy-page
 
 on:
   # Runs on pushes targeting the default branch
@@ -55,7 +55,8 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: 构建
         run: pnpm --filter website build:mock
-
+      - name: 复制dist
+        run: cp -r dist apps/website/dist/
         
       - name: Setup Pages
         uses: actions/configure-pages@v5

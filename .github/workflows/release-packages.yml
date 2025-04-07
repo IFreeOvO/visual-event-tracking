@@ -1,4 +1,4 @@
-name: deployment
+name: release-packages
 on:
   push:
     branches:
@@ -12,10 +12,6 @@ jobs:
       # 环境准备
       - name: 拉取代码
         uses: actions/checkout@v4
-        with:
-          ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
-          persist-credentials: true
-          fetch-depth: 0
       - name: 安装node
         uses: actions/setup-node@v4
         with:
