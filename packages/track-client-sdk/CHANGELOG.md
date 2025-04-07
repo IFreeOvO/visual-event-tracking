@@ -4,6 +4,12 @@
 
 ### Major Changes
 
+- d46497a: 支持埋点
+
+## 1.0.0
+
+### Major Changes
+
 - 3bc192f: 支持埋点
 
 ## 1.0.0

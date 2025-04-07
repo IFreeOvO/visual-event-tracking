@@ -1,6 +1,6 @@
 {
     "name": "@ifreeovo/track-client-sdk",
-    "version": "0.0.0",
+    "version": "1.0.0",
     "description": "自动上报埋点日志的sdk",
     "buildOptions": {
         "globalName": "__TRACK_CLIENT_SDK__"

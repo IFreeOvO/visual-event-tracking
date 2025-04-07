@@ -1,5 +1,12 @@
 # react-test-project
 
+## 0.0.4
+
+### Patch Changes
+
+- Updated dependencies [d46497a]
+    - @ifreeovo/track-link-sdk@1.0.0
+
 ## 0.0.3
 
 ### Patch Changes

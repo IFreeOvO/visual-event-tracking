@@ -1,5 +1,12 @@
 # tracking-system
 
+## 0.0.1
+
+### Patch Changes
+
+- Updated dependencies [d46497a]
+    - @ifreeovo/track-link-sdk@1.0.0
+
 ## 0.0.2
 
 ### Patch Changes
