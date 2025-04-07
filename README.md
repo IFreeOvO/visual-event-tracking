@@ -23,7 +23,7 @@
 
 ## 演示视频
 
-<video controls src="https://github.com/IFreeOvO/visual-event-tracking/resources/videos/demo.mp4" muted="false"></video>
+https://github.com/user-attachments/assets/d4ebb856-80f6-4754-9d27-12a2a049bacb
 
 ## 在线体验
 
