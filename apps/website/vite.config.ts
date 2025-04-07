@@ -62,6 +62,13 @@ export default defineConfig({
     esbuild: {
         drop: isDev ? [] : ['console', 'debugger'],
     },
+    optimizeDeps: {
+        esbuildOptions: {
+            supported: {
+                bigint: true, // 处理Big integer literals are not available 问题。github-action能复现，其他场景复现不了
+            },
+        },
+    },
     build: {
         target: 'es2015',
         minify: isDev ? false : 'esbuild',
