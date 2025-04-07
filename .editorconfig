@@ -1,0 +1,15 @@
+# 表示是最顶层的配置文件，发现值为true时，才会停止查找.editorconfig文件
+root = true
+[*]
+# 设置使用那种缩进风格(tab是制表符，space是空格)
+indent_style = space
+
+# 设置换行符，值为lf、cr和crlf
+end_of_line = lf
+charset = utf-8
+
+[*.md]
+trim_trailing_whitespace = false
+
+[*.{ts,cjs}]
+indent_size = 4

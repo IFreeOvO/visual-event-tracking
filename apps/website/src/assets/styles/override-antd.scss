@@ -1,0 +1,15 @@
+.ant-table {
+    border: 1px solid #f0f0f0;
+
+    .table-action-column {
+        & > div {
+            > a:nth-child(2) {
+                color: red;
+            }
+
+            > a:nth-child(3) {
+                color: rgb(0 0 0 / 45%);
+            }
+        }
+    }
+}

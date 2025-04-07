@@ -1,0 +1,51 @@
+{
+    "name": "log-microservice",
+    "version": "0.0.1",
+    "description": "",
+    "author": "",
+    "private": true,
+    "scripts": {
+        "typecheck": "tsc --noEmit",
+        "build": "nest build",
+        "dev": "cross-env NODE_ENV=development nest start",
+        "start:dev": "cross-env NODE_ENV=development nest start --watch",
+        "start:debug": "cross-env NODE_ENV=development nest start --debug --watch",
+        "start:prod": "cross-env NODE_ENV=production node dist/main"
+    },
+    "dependencies": {
+        "@clickhouse/client": "^1.11.0",
+        "@nestjs/common": "^10.0.0",
+        "@nestjs/config": "^3.2.1",
+        "@nestjs/core": "^10.0.0",
+        "@nestjs/mapped-types": "*",
+        "@nestjs/microservices": "^11.0.11",
+        "@nestjs/platform-express": "^10.0.0",
+        "@nestjs/typeorm": "9.0.0",
+        "cross-env": "^7.0.3",
+        "dayjs": "^1.11.13",
+        "kafkajs": "^2.2.4",
+        "nest-winston": "^1.9.7",
+        "reflect-metadata": "^0.2.0",
+        "request-ip": "^3.3.0",
+        "rxjs": "^7.8.1",
+        "typeorm": "^0.3.20",
+        "winston": "^3.14.2",
+        "winston-daily-rotate-file": "^5.0.0"
+    },
+    "devDependencies": {
+        "@nestjs/cli": "^10.0.0",
+        "@nestjs/schematics": "^10.0.0",
+        "@swc/cli": "^0.6.0",
+        "@swc/core": "^1.11.11",
+        "@types/express": "^4.17.17",
+        "@types/mime": "3.0.4",
+        "@types/node": "^20.3.1",
+        "source-map-support": "^0.5.21",
+        "ts-jest": "^29.1.0",
+        "ts-loader": "^9.4.3",
+        "ts-node": "^10.9.1",
+        "tsconfig-paths": "^4.2.0",
+        "typescript": "^5.1.3"
+    },
+    "packageManager": "pnpm@10.7.1"
+}

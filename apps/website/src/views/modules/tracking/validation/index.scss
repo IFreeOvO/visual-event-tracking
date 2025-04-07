@@ -1,0 +1,9 @@
+#validation-content {
+    .ant-tabs,.ant-tabs-content,.ant-tabs-tabpane {
+        height: 100%;
+    }
+
+    .ant-tabs-content-holder {
+        height: calc(100% - 56px);
+    }
+}

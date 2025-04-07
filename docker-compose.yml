@@ -1,0 +1,43 @@
+# 如果镜像源失效，请从这里https://github.com/dongyubin/DockerHub?tab=readme-ov-file找新镜像替换
+services:
+  website:
+    container_name: website
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      target: website
+    restart: unless-stopped
+    ports:
+      - 8000:8080
+  example:
+    container_name: example
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      target: example
+    restart: unless-stopped
+    ports:
+      - 5600:8080
+
+  server:
+    # command: sleep infinity
+    container_name: server
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      target: server
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+
+  log:
+    # command: sleep infinity
+    container_name: log
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      target: log
+    restart: unless-stopped
+    ports:
+      - 3100:3100
+      - 3300:3300

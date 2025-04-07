@@ -1,0 +1,14 @@
+{
+    "$schema": "https://turbo.build/schema.json",
+    "globalDependencies": ["tsconfig.json", "tsconfig.*.json", ".env", ".env.*"],
+    "tasks": {
+        "typecheck": {
+            "cache": false,
+            "dependsOn": ["^typecheck"]
+        },
+        "build": {
+            "cache": true,
+            "dependsOn": ["^build"]
+        }
+    }
+}

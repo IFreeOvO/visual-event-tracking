@@ -1,0 +1,62 @@
+name: deploy-page
+
+on:
+    push:
+        branches:
+            - main
+
+permissions:
+    contents: read
+    pages: write
+    id-token: write
+
+concurrency:
+    group: 'pages'
+    cancel-in-progress: false
+
+jobs:
+    deploy-production:
+        environment:
+            name: github-pages
+            url: ${{ steps.deployment.outputs.page_url }}
+        runs-on: ubuntu-latest
+
+        steps:
+            # 环境准备
+            - name: 拉取代码
+              uses: actions/checkout@v4
+            - name: 安装node
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 18
+            - name: 安装pnpm
+              uses: pnpm/action-setup@v4
+              with:
+                  version: 10.x
+            - name: 获取pnpm存储目录
+              id: pnpm-cache
+              run: |
+                  echo "pnpm_cache_dir=$(pnpm store path)" >> $GITHUB_OUTPUT
+            - uses: actions/cache@v4
+              name: 设置pnpm缓存
+              with:
+                  path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
+                  key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+                  restore-keys: |
+                      ${{ runner.os }}-pnpm-store-
+
+            # 构建
+            - name: 安装依赖
+              run: pnpm install --frozen-lockfile
+            - name: 构建
+              run: pnpm --filter website build:mock
+
+            # 部署github-page
+            - name: 安装GitHub Pages环境
+              uses: actions/configure-pages@v5
+            - name: 上传构建产物
+              uses: actions/upload-pages-artifact@v3
+              with:
+                  path: './apps/website/dist'
+            - name: 部署到GitHub Pages
+              uses: actions/deploy-pages@v4

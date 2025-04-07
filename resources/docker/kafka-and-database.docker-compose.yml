@@ -1,0 +1,57 @@
+# 如果镜像源失效，请从这里https://github.com/dongyubin/DockerHub?tab=readme-ov-file找新镜像替换
+services:
+  postgres:
+    image: docker.1ms.run/postgres:16
+    restart: unless-stopped
+    container_name: postgres
+    ports:
+      - 5432:5432
+    # volumes:
+    #   - /本地路径:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: 666666
+
+  clickhouse:
+    image: docker.1ms.run/clickhouse/clickhouse-server:23.3.1
+    restart: unless-stopped
+    container_name: clickhouse
+    environment:
+      CLICKHOUSE_USER: root # 管理员用户名
+      CLICKHOUSE_PASSWORD: 123456 # 管理员密码
+      CLICKHOUSE_DB: track # 数据库名称
+      CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT: 1 # 启用访问控制
+    # volumes:
+    #   - /本地路径:/var/lib/clickhouse
+    ports:
+      - 8123:8123
+
+  zookeeper:
+    image: docker.1ms.run/confluentinc/cp-zookeeper:7.4.0
+    restart: unless-stopped
+    container_name: zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+    ports:
+      - 2181:2181
+
+  kafka:
+    image: docker.1ms.run/confluentinc/cp-kafka:7.4.0
+    restart: unless-stopped
+    container_name: kafka
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,EXTERNAL://0.0.0.0:9093 # 改成公网ip
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,EXTERNAL:PLAINTEXT
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,EXTERNAL://0.0.0.0:9093
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+    # volumes:
+    #   - /本地路径:/var/lib/kafka/data  
+    ports:
+      - 9093:9093

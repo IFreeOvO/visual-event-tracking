@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + React</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+    <script src="/index.umd.js"></script>
+    <script>
+      const tracker = new __TRACK_CLIENT_SDK__({
+          // 上报埋点
+          serverURL: 'http://localhost:3000/api/v1', // 后端服务域名
+          projectId: 2, // 项目id
+          sendType: 'gif', // 上报方式。image为图片上报，beacon为navigator.sendBeacon上报
+          // 验证
+          mode: 'reportAndValidate', // 上报模式。mode为validate时，仅验证。mode为report时，仅上报日志。mode为reportAndValidate时，既上报又验证
+          trackingClientURL: 'http://localhost:8000', // 埋点客户端地址
+      })
+      tracker.start()
+  </script>
+  </body>
+</html>

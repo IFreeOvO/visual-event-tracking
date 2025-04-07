@@ -1,0 +1,15 @@
+@use './normalize.scss';
+@use './override-antd.scss';
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+    height: 100%;
+}
+

@@ -1,0 +1,47 @@
+{
+    "name": "@ifreeovo/track-link-sdk",
+    "version": "1.0.0",
+    "description": "",
+    "buildOptions": {
+        "globalName": "__TRACK_LINK_SDK__"
+    },
+    "type": "module",
+    "exports": {
+        ".": {
+            "types": "./dist/global.d.ts",
+            "import": "./dist/es/main.js"
+        },
+        "./es": {
+            "types": "./dist/global.d.ts",
+            "import": "./dist/es/main.js"
+        },
+        "./*": "./*"
+    },
+    "scripts": {
+        "typecheck": "tsc --noEmit",
+        "dev": "rollup -c ./build/rollup.dev.config.mjs --environment BUILD:development -w",
+        "build": "rimraf dist && rollup -c ./build/rollup.prod.config.mjs --environment BUILD:production"
+    },
+    "keywords": [],
+    "files": [
+        "README.md",
+        "dist"
+    ],
+    "author": "IFreeOvO",
+    "license": "MIT",
+    "dependencies": {
+        "@ifreeovo/highlight-dom": "^1.0.1",
+        "chobitsu": "^1.4.6",
+        "html2canvas": "^1.4.1",
+        "ismobilejs": "^1.1.1",
+        "lodash-es": "^4.17.21",
+        "nanoid": "^5.0.6",
+        "qs": "^6.12.0",
+        "reconnecting-websocket": "^4.4.0",
+        "reflect-metadata": "^0.2.2"
+    },
+    "devDependencies": {
+        "@types/lodash-es": "^4.17.12",
+        "glob": "^10.3.12"
+    }
+}

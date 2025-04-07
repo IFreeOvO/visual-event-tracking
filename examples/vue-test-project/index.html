@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + Vue</title>
+    <script src="/index.umd.js" >
+    </script>
+    <script>
+      const tracker = new __TRACK_CLIENT_SDK__({
+        // serverURL: 'http://127.0.0.1:4523/m1/6044315-5734254-default/api/v1', // 后端服务域名 。http://localhost:3000/api/v1
+        serverURL: 'http://localhost:3000/api/v1',
+        projectId: 2,
+        intersectionObserverOptions: {
+          threshold: 0.2,
+        },
+        mode: 'validate', // 上报模式
+        trackingClientURL: 'http://localhost:8000', // 埋点客户端地址
+      })
+      tracker.start()
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

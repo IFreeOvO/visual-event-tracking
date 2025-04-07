@@ -1,0 +1,31 @@
+{
+    "name": "@ifreeovo/track-client-sdk",
+    "version": "1.0.0",
+    "description": "自动上报埋点日志的sdk",
+    "buildOptions": {
+        "globalName": "__TRACK_CLIENT_SDK__"
+    },
+    "type": "module",
+    "sideEffects": false,
+    "main": "dist/umd/index.umd.js",
+    "module": "dist/es/index.esm.js",
+    "types": "dist/types/index.d.ts",
+    "scripts": {
+        "typecheck": "tsc --noEmit",
+        "dev": "tsc --emitDeclarationOnly && rollup -c ./build/rollup.dev.config.mjs --environment BUILD:development -w",
+        "build": "rimraf dist && rollup -c ./build/rollup.prod.config.mjs --environment BUILD:production && tsc --emitDeclarationOnly "
+    },
+    "keywords": [],
+    "files": [
+        "README.md",
+        "dist"
+    ],
+    "author": "IFreeOvO",
+    "license": "MIT",
+    "dependencies": {
+        "lodash-es": "^4.17.21"
+    },
+    "devDependencies": {
+        "@types/lodash-es": "^4.17.12"
+    }
+}
