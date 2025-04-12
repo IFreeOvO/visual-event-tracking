@@ -25,7 +25,7 @@ export function throttle<T extends any[]>(
     delay = 60,
 ): (...args: T) => void {
     let lastTime = Date.now()
-    let timer: NodeJS.Timeout | null = null
+    let timer: ReturnType<typeof setTimeout> | null = null
     return function (this: any, ...args: T) {
         const currentTime = Date.now()
         const diffTime = currentTime - lastTime

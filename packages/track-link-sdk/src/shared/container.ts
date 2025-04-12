@@ -1,5 +1,4 @@
 import type { AnyClass, Provider } from '@/types'
-import { isObject } from 'lodash-es'
 
 class Container {
     private _providerMap: Map<string, Provider> = new Map()
@@ -19,7 +18,7 @@ class Container {
 
             if (provider) {
                 // 如果是类，先实例化再存储
-                if (isObject(provider) && provider.definition) {
+                if (typeof provider === 'object' && provider.definition) {
                     const { definition, constructorArgs } = provider
                     value = new definition(...constructorArgs)
                     this._modulesMap.set(token, value)

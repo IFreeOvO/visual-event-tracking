@@ -1,6 +1,5 @@
 import type { FormProps } from 'antd'
-import { Button, Form, Input, Row, Col } from 'antd'
-import { message } from 'antd'
+import { Button, Form, Input, Row, Col, message } from 'antd'
 import { login } from '@/api/service/auth'
 import { VisibleStatusEnum } from '@/constants/enums'
 import { Path } from '@/constants/path'

@@ -9,7 +9,7 @@ import { Inject, Module } from '@/shared/decorator'
 class Socket {
     websocket?: ReconnectingWebSocket
 
-    heartbeat?: NodeJS.Timeout
+    heartbeat?: ReturnType<typeof setTimeout>
 
     interval: number = 10 * 1000
 
