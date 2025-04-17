@@ -7,7 +7,7 @@ import DynamicForm from '@/components/business/dynamic-form'
 import FormDrawer, { FormDrawerProps } from '@/components/business/form-drawer'
 import { UserStatusEnum } from '@/constants/enums'
 
-export type MenuFormDrawerProps = Omit<FormDrawerProps, 'onSubmit' | 'onClose'> & {
+export type UserFormDrawerProps = Omit<FormDrawerProps, 'onSubmit' | 'onClose'> & {
     onDrawerClose?: FormDrawerProps['onClose']
     onSubmitSuccess?: () => void
     roleOptions: SelectProps['options']
@@ -17,7 +17,7 @@ export type AddUserForm = AddUser & {
     confirmPassword?: string
 }
 
-const UserFormDrawer: React.FC<MenuFormDrawerProps> = memo((props) => {
+const UserFormDrawer: React.FC<UserFormDrawerProps> = (props) => {
     const { onDrawerClose, onSubmitSuccess, roleOptions } = props
     const [drawerForm] = Form.useForm()
 
@@ -201,6 +201,6 @@ const UserFormDrawer: React.FC<MenuFormDrawerProps> = memo((props) => {
             ></DynamicForm>
         </FormDrawer>
     )
-})
+}
 
 export default UserFormDrawer

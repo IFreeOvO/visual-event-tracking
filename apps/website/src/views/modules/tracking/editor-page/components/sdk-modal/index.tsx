@@ -4,9 +4,9 @@ import { REQUEST_BASE_URL } from '@/constants/domains'
 import { LanguageEnum } from '@/constants/enums'
 import sdkPkg from '../../../../../../../../../packages/track-client-sdk/package.json'
 
-type SDKModalProps = ModalProps
+export type SDKModalProps = ModalProps
 
-const SDKModal: React.FC<SDKModalProps> = memo((props) => {
+const SDKModal: React.FC<SDKModalProps> = (props) => {
     const { id } = useParams()
     const { width = '80%', ...resetProps } = props
 
@@ -34,6 +34,6 @@ tracker.start()`
             <CodeBlock code={cdn} language={LanguageEnum.XML}></CodeBlock>
         </Modal>
     )
-})
+}
 
 export default SDKModal

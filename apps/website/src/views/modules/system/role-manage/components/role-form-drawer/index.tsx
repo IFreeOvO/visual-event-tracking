@@ -6,15 +6,14 @@ import DynamicForm from '@/components/business/dynamic-form'
 import FormDrawer, { FormDrawerProps } from '@/components/business/form-drawer'
 import { RoleStatusEnum } from '@/constants/enums'
 
-export type MenuFormDrawerProps = Omit<FormDrawerProps, 'onSubmit' | 'onClose'> & {
+export type RoleFormDrawerProps = Omit<FormDrawerProps, 'onSubmit' | 'onClose'> & {
     onDrawerClose?: FormDrawerProps['onClose']
     onSubmitSuccess?: () => void
 }
 
-const RoleFormDrawer: React.FC<MenuFormDrawerProps> = memo((props) => {
+const RoleFormDrawer: React.FC<RoleFormDrawerProps> = (props) => {
     const { onDrawerClose, onSubmitSuccess } = props
     const [drawerForm] = Form.useForm()
-
     const [statusRadioOptions] = useImmer([
         { value: RoleStatusEnum.Enabled, label: '启用' },
         { value: RoleStatusEnum.Disabled, label: '禁用' },
@@ -135,6 +134,6 @@ const RoleFormDrawer: React.FC<MenuFormDrawerProps> = memo((props) => {
             </FormDrawer>
         </>
     )
-})
+}
 
 export default RoleFormDrawer

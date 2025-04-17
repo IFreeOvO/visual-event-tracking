@@ -9,14 +9,14 @@ import useResetImmer from '@/hooks/common/user-reset-immer'
 import useStatusSelectOptions from '../../hooks/use-status-options'
 import useTypeSelectOptions from '../../hooks/use-type-select-options'
 
-export type MenuFormDrawerProps = Omit<FormDrawerProps, 'onSubmit' | 'onClose'> & {
+export type PermissionFormDrawerProps = Omit<FormDrawerProps, 'onSubmit' | 'onClose'> & {
     onDrawerClose?: FormDrawerProps['onClose']
     onSubmitSuccess?: () => void
     menuOptions?: SelectProps['options']
     featureOptions?: SelectProps['options']
 }
 
-const PermissionFormDrawer: React.FC<MenuFormDrawerProps> = memo((props) => {
+const PermissionFormDrawer: React.FC<PermissionFormDrawerProps> = (props) => {
     const { onDrawerClose, onSubmitSuccess, menuOptions = [], featureOptions = [] } = props
     const [drawerForm] = Form.useForm()
     const [permissionType, setPermissionType, resetPermissionType] =
@@ -185,6 +185,6 @@ const PermissionFormDrawer: React.FC<MenuFormDrawerProps> = memo((props) => {
             </FormDrawer>
         </>
     )
-})
+}
 
 export default PermissionFormDrawer

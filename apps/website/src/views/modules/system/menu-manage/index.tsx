@@ -1,11 +1,12 @@
+import type { MenuFormDrawerProps } from './components/menu-form-drawer'
 import type { TableDataType } from './hooks/use-menu-list-table'
 import type { SearchMenuForm } from '@/models/dto/menu.dto'
 import type { Menu } from '@/models/vo/menu.vo'
 import { useMemoizedFn, useMount } from 'ahooks'
 import { message } from 'antd'
 import { assign, omit } from 'lodash-es'
-import { Suspense } from 'react'
 import { deleteMenu, getMenus, updateMenu } from '@/api/service/menu'
+import { LazyImportOnCondition } from '@/components/common/lazy-import-on-condition'
 import useDrawer from '@/hooks/business/use-drawer'
 import useMenuRefresh from '@/hooks/business/use-menu-items'
 import useEmitterListener from '@/hooks/common/use-emitter-listener'
@@ -170,14 +171,16 @@ const MenuManagePage: React.FC = () => {
                 formProps={formProps}
                 formItems={formItems}
             ></FormAndTableLayout>
-            <Suspense>
-                <MenuFormDrawer
-                    drawerTitle={drawerTitle}
-                    onDrawerClose={toggleDrawerState}
-                    onSubmitSuccess={onDrawerSubmitSuccess}
-                    open={isOpenDrawer}
-                ></MenuFormDrawer>
-            </Suspense>
+            <LazyImportOnCondition<MenuFormDrawerProps>
+                lazy={MenuFormDrawer}
+                isLoad={isOpenDrawer}
+                componentProps={{
+                    drawerTitle,
+                    onDrawerClose: toggleDrawerState,
+                    onSubmitSuccess: onDrawerSubmitSuccess,
+                    open: isOpenDrawer,
+                }}
+            ></LazyImportOnCondition>
         </>
     )
 }

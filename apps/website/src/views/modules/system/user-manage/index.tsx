@@ -1,3 +1,4 @@
+import type { UserFormDrawerProps } from './components/user-form-drawer'
 import type { TableDataType } from './hooks/use-user-list-table'
 import type { SearchUserForm, UpdateUser } from '@/models/dto/user.dto'
 import type { User } from '@/models/vo/user.vo'
@@ -6,14 +7,15 @@ import { message, SelectProps } from 'antd'
 import { assign, omit } from 'lodash-es'
 import { getRole } from '@/api/service/role'
 import { deleteUser, getUser, updateUser } from '@/api/service/user'
+import { LazyImportOnCondition } from '@/components/common/lazy-import-on-condition'
 import { RoleStatusEnum } from '@/constants/enums'
 import useDrawer from '@/hooks/business/use-drawer'
 import useEmitterListener from '@/hooks/common/use-emitter-listener'
 import FormAndTableLayout from '@/layouts/form-and-table-layout'
 import { EmitterEventTypes } from '@/shared/emitter'
-import UserFormDrawer from './components/user-form-drawer'
 import useUserListTable from './hooks/use-user-list-table'
 import useUserSearchForm from './hooks/use-user-search-form'
+const UserFormDrawer = lazy(() => import('./components/user-form-drawer'))
 
 const UserManagePage: React.FC = () => {
     const [roleOptions, setRoleOptions] = useImmer<SelectProps['options']>([])
@@ -189,13 +191,17 @@ const UserManagePage: React.FC = () => {
                 formProps={formProps}
                 formItems={formItems}
             ></FormAndTableLayout>
-            <UserFormDrawer
-                roleOptions={roleOptions}
-                drawerTitle={drawerTitle}
-                onDrawerClose={toggleDrawerState}
-                onSubmitSuccess={onDrawerSubmitSuccess}
-                open={isOpenDrawer}
-            ></UserFormDrawer>
+            <LazyImportOnCondition<UserFormDrawerProps>
+                lazy={UserFormDrawer}
+                isLoad={isOpenDrawer}
+                componentProps={{
+                    drawerTitle,
+                    roleOptions,
+                    onDrawerClose: toggleDrawerState,
+                    onSubmitSuccess: onDrawerSubmitSuccess,
+                    open: isOpenDrawer,
+                }}
+            ></LazyImportOnCondition>
         </>
     )
 }

@@ -1,3 +1,4 @@
+import type { PermissionFormDrawerProps } from './components/permission-form-drawer'
 import type { TableDataType } from './hooks/use-permission-list-table'
 import type { SearchPermissionForm } from '@/models/dto/permission.dto'
 import type { Permission } from '@/models/vo/permission.vo'
@@ -5,15 +6,16 @@ import { useMemoizedFn, useMount } from 'ahooks'
 import { message } from 'antd'
 import { assign } from 'lodash-es'
 import { deletePermission, getPermissions, updatePermission } from '@/api/service/permission'
+import { LazyImportOnCondition } from '@/components/common/lazy-import-on-condition'
 import { PermissionTypeEnum } from '@/constants/enums'
 import useMenuRefresh from '@/hooks/business/use-menu-items'
 import useEmitterListener from '@/hooks/common/use-emitter-listener'
 import FormAndTableLayout from '@/layouts/form-and-table-layout'
 import { EmitterEventTypes } from '@/shared/emitter'
-import PermissionFormDrawer from './components/permission-form-drawer'
 import usePermissionDrawer from './hooks/use-permission-drawer'
 import usePermissionListTable from './hooks/use-permission-list-table'
 import usePermissionSearchForm from './hooks/use-permission-search-form'
+const PermissionFormDrawer = lazy(() => import('./components/permission-form-drawer'))
 
 const PermissionManagePage: React.FC = () => {
     const refreshMenuItems = useMenuRefresh()
@@ -173,14 +175,18 @@ const PermissionManagePage: React.FC = () => {
                 formProps={formProps}
                 formItems={formItems}
             ></FormAndTableLayout>
-            <PermissionFormDrawer
-                featureOptions={featureOptions}
-                menuOptions={menuOptions}
-                drawerTitle={drawerTitle}
-                onDrawerClose={toggleDrawerState}
-                onSubmitSuccess={onDrawerSubmitSuccess}
-                open={isOpenDrawer}
-            ></PermissionFormDrawer>
+            <LazyImportOnCondition<PermissionFormDrawerProps>
+                lazy={PermissionFormDrawer}
+                isLoad={isOpenDrawer}
+                componentProps={{
+                    drawerTitle,
+                    featureOptions,
+                    menuOptions,
+                    onDrawerClose: toggleDrawerState,
+                    onSubmitSuccess: onDrawerSubmitSuccess,
+                    open: isOpenDrawer,
+                }}
+            ></LazyImportOnCondition>
         </>
     )
 }

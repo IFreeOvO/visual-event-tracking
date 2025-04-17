@@ -1,3 +1,5 @@
+import type { FeaturePermissionDialogProps } from './components/feature-permission-dialog'
+import type { MenuPermissionDialogProps } from './components/menu-permission-dialog'
 import type { TableDataType } from './hooks/use-role-list-table'
 import type { SearchRoleForm } from '@/models/dto/role.dto'
 import type { Role } from '@/models/vo/role.vo'
@@ -5,17 +7,19 @@ import { useMemoizedFn, useMount } from 'ahooks'
 import { message } from 'antd'
 import { assign, omit } from 'lodash-es'
 import { deleteRole, getRole, updateRole } from '@/api/service/role'
+import { LazyImportOnCondition } from '@/components/common/lazy-import-on-condition'
 import useDrawer from '@/hooks/business/use-drawer'
 import useEmitterListener from '@/hooks/common/use-emitter-listener'
 import FormAndTableLayout from '@/layouts/form-and-table-layout'
 import { EmitterEventTypes } from '@/shared/emitter'
-import FeaturePermissionDialog from './components/feature-permission-dialog'
-import MenuPermissionDialog from './components/menu-permission-dialog'
-import RoleFormDrawer from './components/role-form-drawer'
+import { RoleFormDrawerProps } from './components/role-form-drawer'
 import useFeaturePermissionDialog from './hooks/use-feature-permission-dialog'
 import useMenuPermissionDialog from './hooks/use-menu-permission-dialog'
 import useRoleListTable from './hooks/use-role-list-table'
 import useRoleSearchForm from './hooks/use-role-search-form'
+const RoleFormDrawer = lazy(() => import('./components/role-form-drawer'))
+const MenuPermissionDialog = lazy(() => import('./components/menu-permission-dialog'))
+const FeaturePermissionDialog = lazy(() => import('./components/feature-permission-dialog'))
 
 const RoleManagePage: React.FC = () => {
     const [roleId, setRoleId] = useImmer<number>(-1)
@@ -180,24 +184,36 @@ const RoleManagePage: React.FC = () => {
                 formProps={formProps}
                 formItems={formItems}
             ></FormAndTableLayout>
-            <RoleFormDrawer
-                drawerTitle={drawerTitle}
-                onDrawerClose={toggleDrawerState}
-                onSubmitSuccess={onDrawerSubmitSuccess}
-                open={isOpenDrawer}
-            ></RoleFormDrawer>
-            <MenuPermissionDialog
-                roleId={roleId}
-                isOpen={isMenuModalOpen}
-                onCancel={toggleMenuModalOpen}
-                onOk={onMenuModalOk}
-            ></MenuPermissionDialog>
-            <FeaturePermissionDialog
-                roleId={roleId}
-                isOpen={isFeatureModalOpen}
-                onCancel={toggleFeatureModalOpen}
-                onOk={onFeatureModalOk}
-            ></FeaturePermissionDialog>
+            <LazyImportOnCondition<RoleFormDrawerProps>
+                lazy={RoleFormDrawer}
+                isLoad={isOpenDrawer}
+                componentProps={{
+                    drawerTitle,
+                    onDrawerClose: toggleDrawerState,
+                    onSubmitSuccess: onDrawerSubmitSuccess,
+                    open: isOpenDrawer,
+                }}
+            ></LazyImportOnCondition>
+            <LazyImportOnCondition<MenuPermissionDialogProps>
+                lazy={MenuPermissionDialog}
+                isLoad={isMenuModalOpen}
+                componentProps={{
+                    roleId,
+                    isOpen: isMenuModalOpen,
+                    onCancel: toggleMenuModalOpen,
+                    onOk: onMenuModalOk,
+                }}
+            ></LazyImportOnCondition>
+            <LazyImportOnCondition<FeaturePermissionDialogProps>
+                lazy={FeaturePermissionDialog}
+                isLoad={isFeatureModalOpen}
+                componentProps={{
+                    roleId,
+                    isOpen: isFeatureModalOpen,
+                    onCancel: toggleFeatureModalOpen,
+                    onOk: onFeatureModalOk,
+                }}
+            ></LazyImportOnCondition>
         </>
     )
 }

@@ -10,12 +10,12 @@ import emitter, { EmitterEventTypes } from '@/shared/emitter'
 import { getRandomString } from '@/shared/get-random-string'
 import TrackingDrawer from './tracking-drawer'
 
-type EditTrackingDrawerProps = Omit<TrackingDrawerProps, 'form'> & {
+export type EditTrackingDrawerProps = Omit<TrackingDrawerProps, 'form'> & {
     trackingId: number
     onSubmitSuccess?: () => void
 }
 
-const EditTrackingDrawer: React.FC<EditTrackingDrawerProps> = memo((props) => {
+const EditTrackingDrawer: React.FC<EditTrackingDrawerProps> = (props) => {
     const { trackingId, onSubmitSuccess, open } = props
     const [form] = Form.useForm()
     const [data, setData] = useImmer<Tracking | undefined>(undefined)
@@ -149,7 +149,7 @@ const EditTrackingDrawer: React.FC<EditTrackingDrawerProps> = memo((props) => {
             onFinishForm={onFinishForm}
         ></TrackingDrawer>
     )
-})
+}
 
 export default EditTrackingDrawer
 

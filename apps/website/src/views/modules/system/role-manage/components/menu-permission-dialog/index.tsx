@@ -12,7 +12,7 @@ export interface MenuPermissionDialogProps {
     onCancel?: ModalProps['onCancel']
 }
 
-const MenuPermissionDialog = memo((props: MenuPermissionDialogProps) => {
+const MenuPermissionDialog: React.FC<MenuPermissionDialogProps> = (props) => {
     const { roleId, isOpen, onOk, onCancel } = props
     const {
         treeData,
@@ -94,6 +94,6 @@ const MenuPermissionDialog = memo((props: MenuPermissionDialogProps) => {
             </div>
         </Modal>
     )
-})
+}
 
 export default MenuPermissionDialog

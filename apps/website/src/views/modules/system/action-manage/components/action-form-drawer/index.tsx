@@ -10,7 +10,7 @@ export type ActionFormDrawerProps = Omit<FormDrawerProps, 'onSubmit' | 'onClose'
     onSubmitSuccess?: () => void
 }
 
-const ActionFormDrawer: React.FC<ActionFormDrawerProps> = memo((props) => {
+const ActionFormDrawer: React.FC<ActionFormDrawerProps> = (props) => {
     const { onDrawerClose, onSubmitSuccess } = props
     const [drawerForm] = Form.useForm()
 
@@ -95,6 +95,6 @@ const ActionFormDrawer: React.FC<ActionFormDrawerProps> = memo((props) => {
             </FormDrawer>
         </>
     )
-})
+}
 
 export default ActionFormDrawer

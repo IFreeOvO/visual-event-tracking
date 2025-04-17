@@ -15,7 +15,7 @@ export type FeatureFormDrawerProps = Omit<FormDrawerProps, 'onSubmit' | 'onClose
     }
 }
 
-const FeatureFormDrawer: React.FC<FeatureFormDrawerProps> = memo((props) => {
+const FeatureFormDrawer: React.FC<FeatureFormDrawerProps> = (props) => {
     const { onDrawerClose, onSubmitSuccess, actionOptions = [] } = props
     const [drawerForm] = Form.useForm()
     const [subjectOptions, setSubjectOptions] = useImmer<SelectProps['options']>([])
@@ -194,6 +194,6 @@ const FeatureFormDrawer: React.FC<FeatureFormDrawerProps> = memo((props) => {
             </FormDrawer>
         </>
     )
-})
+}
 
 export default FeatureFormDrawer

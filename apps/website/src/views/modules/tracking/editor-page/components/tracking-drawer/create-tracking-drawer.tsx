@@ -9,12 +9,12 @@ import { dataURLToBlob } from '@/shared/dataURL-to-blob'
 import emitter, { EmitterEventTypes } from '@/shared/emitter'
 import TrackingDrawer from './tracking-drawer'
 
-type CreateTrackingDrawerProps = Omit<TrackingDrawerProps, 'form'> &
+export type CreateTrackingDrawerProps = Omit<TrackingDrawerProps, 'form'> &
     Partial<Tracking> & {
         onSubmitSuccess?: () => void
     }
 
-const CreateTrackingDrawer: React.FC<CreateTrackingDrawerProps> = memo((props) => {
+const CreateTrackingDrawer: React.FC<CreateTrackingDrawerProps> = (props) => {
     const { xpath, snapshot, url, validationMarker, onSubmitSuccess } = props
     const { id } = useParams()
     const [form] = Form.useForm()
@@ -116,6 +116,6 @@ const CreateTrackingDrawer: React.FC<CreateTrackingDrawerProps> = memo((props) =
             onFinishForm={onFinishForm}
         ></TrackingDrawer>
     )
-})
+}
 
 export default CreateTrackingDrawer

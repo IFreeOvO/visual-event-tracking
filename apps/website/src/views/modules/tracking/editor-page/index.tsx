@@ -1,7 +1,11 @@
+import type { EventManageDrawerProps } from './components/event-manage-drawer'
+import type { CreateTrackingDrawerProps } from './components/tracking-drawer/create-tracking-drawer'
+import type { EditTrackingDrawerProps } from './components/tracking-drawer/edit-tracking-drawer'
 import { createChannelId } from '@ifreeovo/track-link-sdk'
 import { useMemoizedFn, useToggle } from 'ahooks'
 import { Space, Button, Divider, Flex, theme } from 'antd'
 import Navigation from '@/components/business/navigation'
+import { LazyImportOnCondition } from '@/components/common/lazy-import-on-condition'
 import Loading from '@/components/common/loading'
 import { DEVTOOL_URL, DEVTOOL_WEBSOCKET_URL } from '@/constants/domains'
 import usePostMessage from '@/hooks/business/use-post-message'
@@ -10,12 +14,19 @@ import useRouter from '@/hooks/common/use-router'
 import { Tracking } from '@/models/vo/tracking.vo'
 import { EmitterEventTypes } from '@/shared/emitter'
 import EditorHeader from './components/editor-header'
-import EventManageDrawer from './components/event-manage-drawer'
-import SDKModal from './components/sdk-modal'
-import CreateTrackingDrawer from './components/tracking-drawer/create-tracking-drawer'
-import EditTrackingDrawer from './components/tracking-drawer/edit-tracking-drawer'
+// import EventManageDrawer from './components/event-manage-drawer'
+// import SDKModal from './components/sdk-modal'
+// import CreateTrackingDrawer from './components/tracking-drawer/create-tracking-drawer'
+// import EditTrackingDrawer from './components/tracking-drawer/edit-tracking-drawer'
+import { SDKModalProps } from './components/sdk-modal'
 import useIframeRouter from './hooks/use-iframe-router'
 import useInspector from './hooks/use-inspector'
+const CreateTrackingDrawer = lazy(
+    () => import('./components/tracking-drawer/create-tracking-drawer'),
+)
+const EditTrackingDrawer = lazy(() => import('./components/tracking-drawer/edit-tracking-drawer'))
+const EventManageDrawer = lazy(() => import('./components/event-manage-drawer'))
+const SDKModal = lazy(() => import('./components/sdk-modal'))
 
 const EditorPage: React.FC = () => {
     const {
@@ -172,37 +183,53 @@ const EditorPage: React.FC = () => {
                 </Flex>
             </div>
             {/* 创建埋点 */}
-            <CreateTrackingDrawer
-                validationMarker={validationMarker}
-                url={navigationURL}
-                xpath={xpath}
-                snapshot={snapshot}
-                open={showCreateModal}
-                sendMessage={sendToIframe}
-                onCancel={toggleShowCreateModal}
-                onSubmitSuccess={toggleShowCreateModal}
-            ></CreateTrackingDrawer>
+            <LazyImportOnCondition<CreateTrackingDrawerProps>
+                lazy={CreateTrackingDrawer}
+                isLoad={showCreateModal}
+                componentProps={{
+                    xpath,
+                    snapshot,
+                    validationMarker,
+                    url: navigationURL,
+                    open: showCreateModal,
+                    sendMessage: sendToIframe,
+                    onCancel: toggleShowCreateModal,
+                    onSubmitSuccess: toggleShowCreateModal,
+                }}
+            ></LazyImportOnCondition>
             {/* 编辑埋点 */}
-            <EditTrackingDrawer
-                trackingId={trackingId}
-                open={showEditTrackingDrawer}
-                sendMessage={sendToIframe}
-                onCancel={toggleShowEditTrackingDrawer}
-                onSubmitSuccess={toggleShowEditTrackingDrawer}
-            ></EditTrackingDrawer>
+            <LazyImportOnCondition<EditTrackingDrawerProps>
+                lazy={EditTrackingDrawer}
+                isLoad={showEditTrackingDrawer}
+                componentProps={{
+                    trackingId,
+                    open: showEditTrackingDrawer,
+                    sendMessage: sendToIframe,
+                    onCancel: toggleShowEditTrackingDrawer,
+                    onSubmitSuccess: toggleShowEditTrackingDrawer,
+                }}
+            ></LazyImportOnCondition>
             {/* 事件管理 */}
-            <EventManageDrawer
-                iframeURL={navigationURL}
-                open={showEventManageDrawer}
-                onEditRow={onEditTrackingRow}
-                onClose={toggleShowEventManageDrawer}
-            ></EventManageDrawer>
+            <LazyImportOnCondition<EventManageDrawerProps>
+                lazy={EventManageDrawer}
+                isLoad={showEventManageDrawer}
+                componentProps={{
+                    iframeURL: navigationURL,
+                    open: showEventManageDrawer,
+                    onEditRow: onEditTrackingRow,
+                    onClose: toggleShowEventManageDrawer,
+                }}
+            ></LazyImportOnCondition>
             {/* 生成SDK */}
-            <SDKModal
-                open={showSDKModal}
-                onCancel={toggleShowSDKModal}
-                onOk={toggleShowSDKModal}
-            ></SDKModal>
+            <LazyImportOnCondition<SDKModalProps>
+                lazy={SDKModal}
+                isLoad={showSDKModal}
+                componentProps={{
+                    open: showSDKModal,
+                    onCancel: toggleShowSDKModal,
+                    onOk: toggleShowSDKModal,
+                }}
+            ></LazyImportOnCondition>
             <Loading fullscreen spinning={showFullScreenLoading}></Loading>
         </>
     )

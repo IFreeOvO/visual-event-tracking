@@ -8,7 +8,7 @@ import useEmitterListener from '@/hooks/common/use-emitter-listener'
 import { Tracking } from '@/models/vo/tracking.vo'
 import { EmitterEventTypes } from '@/shared/emitter'
 
-type EventManageDrawerProps = DrawerProps & {
+export type EventManageDrawerProps = DrawerProps & {
     onEditRow?: (data: Tracking) => void
     iframeURL: string
 }

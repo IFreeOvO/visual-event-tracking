@@ -6,7 +6,7 @@ import DynamicForm from '@/components/business/dynamic-form'
 import FormDrawer, { FormDrawerProps } from '@/components/business/form-drawer'
 import { ModeEnum } from '@/constants/enums'
 
-type ProjectFormDrawerProps = Omit<FormDrawerProps, 'onSubmit' | 'onClose'> & {
+export type ProjectFormDrawerProps = Omit<FormDrawerProps, 'onSubmit' | 'onClose'> & {
     onDrawerClose?: (form: FormInstance) => void
     onSubmitSuccess?: (value: Project, form: FormInstance) => void
     project?: Project

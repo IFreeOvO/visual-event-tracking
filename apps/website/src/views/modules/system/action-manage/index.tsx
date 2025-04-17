@@ -1,3 +1,4 @@
+import type { ActionFormDrawerProps } from './components/action-form-drawer'
 import type { TableDataType } from './hooks/use-action-list-table'
 import type { SearchActionForm } from '@/models/dto/action.dto'
 import type { Action } from '@/models/vo/action.vo'
@@ -5,13 +6,14 @@ import { useMemoizedFn, useMount } from 'ahooks'
 import { message } from 'antd'
 import { assign, omit } from 'lodash-es'
 import { deleteAction, getActions, updateAction } from '@/api/service/action'
+import { LazyImportOnCondition } from '@/components/common/lazy-import-on-condition'
 import useDrawer from '@/hooks/business/use-drawer'
 import useEmitterListener from '@/hooks/common/use-emitter-listener'
 import FormAndTableLayout from '@/layouts/form-and-table-layout'
 import { EmitterEventTypes } from '@/shared/emitter'
-import ActionFormDrawer from './components/action-form-drawer'
 import useActionListTable from './hooks/use-action-list-table'
 import useActionSearchForm from './hooks/use-action-search-form'
+const ActionFormDrawer = lazy(() => import('./components/action-form-drawer'))
 
 const ActionManage: React.FC = () => {
     const { isOpenDrawer, drawerTitle, toggleDrawerState, onDrawerSubmitSuccess } = useDrawer({
@@ -162,12 +164,16 @@ const ActionManage: React.FC = () => {
                 formProps={formProps}
                 formItems={formItems}
             ></FormAndTableLayout>
-            <ActionFormDrawer
-                drawerTitle={drawerTitle}
-                onDrawerClose={toggleDrawerState}
-                onSubmitSuccess={onDrawerSubmitSuccess}
-                open={isOpenDrawer}
-            ></ActionFormDrawer>
+            <LazyImportOnCondition<ActionFormDrawerProps>
+                lazy={ActionFormDrawer}
+                isLoad={isOpenDrawer}
+                componentProps={{
+                    drawerTitle,
+                    onDrawerClose: toggleDrawerState,
+                    onSubmitSuccess: onDrawerSubmitSuccess,
+                    open: isOpenDrawer,
+                }}
+            ></LazyImportOnCondition>
         </>
     )
 }

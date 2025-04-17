@@ -1,3 +1,4 @@
+import type { ProjectFormDrawerProps } from './components/project-form-drawer'
 import type { Project } from '@/models/vo/project.vo'
 import { PlusOutlined } from '@ant-design/icons'
 import { usePagination } from 'ahooks'
@@ -14,13 +15,14 @@ import {
     Row,
 } from 'antd'
 import { createProject, deleteProject, getProjects, updateProject } from '@/api/service/project'
+import { LazyImportOnCondition } from '@/components/common/lazy-import-on-condition'
 import Loading from '@/components/common/loading'
 import { GLOBAL_PAGE_SIZE } from '@/constants/common'
 import { ModeEnum } from '@/constants/enums'
 import useDrawer from '@/hooks/business/use-drawer'
 import useRouter from '@/hooks/common/use-router'
-import ProjectFormDrawer from './components/project-form-drawer'
 import ProjectItem, { ProjectItemProps } from './components/project-item'
+const ProjectFormDrawer = lazy(() => import('./components/project-form-drawer'))
 
 const queryList: any = async ({ current, pageSize }: { current: number; pageSize: number }) => {
     return getProjects({
@@ -195,15 +197,18 @@ const ProjectConfigsPage: React.FC = () => {
                     />
                 </Flex>
             </Card>
-
-            <ProjectFormDrawer
-                mode={mode}
-                project={project}
-                drawerTitle={drawerTitle}
-                onDrawerClose={onCloseDrawer}
-                onSubmitSuccess={onDrawerSubmitSuccess}
-                open={isOpenDrawer}
-            ></ProjectFormDrawer>
+            <LazyImportOnCondition<ProjectFormDrawerProps>
+                lazy={ProjectFormDrawer}
+                isLoad={isOpenDrawer}
+                componentProps={{
+                    mode,
+                    drawerTitle,
+                    project,
+                    onDrawerClose: onCloseDrawer,
+                    onSubmitSuccess: onDrawerSubmitSuccess,
+                    open: isOpenDrawer,
+                }}
+            ></LazyImportOnCondition>
         </>
     )
 }
