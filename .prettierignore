@@ -1,3 +1,4 @@
 node_modules
 dist
 devtools-frontend
+apps/server/src/metadata.ts
