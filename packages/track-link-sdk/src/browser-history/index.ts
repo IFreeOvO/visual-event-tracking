@@ -195,5 +195,8 @@ export default BrowserHistory
 // 获取页面在历史堆栈里的位置。position是vue-router里的，idx是react-router里的
 function getPageIndex(history: { state: { idx?: number; position?: number } }) {
     const { state } = history
+    if (!state) {
+        return 0
+    }
     return state.position ?? state.idx ?? 0
 }
