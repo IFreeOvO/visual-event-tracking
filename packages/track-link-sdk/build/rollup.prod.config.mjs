@@ -47,6 +47,9 @@ export default [
             format: 'es',
             compact: true,
         },
+        treeshake: {
+            moduleSideEffects: (id) => id.includes('reflect-metadata'),
+        },
         onwarn(warning, warn) {
             if (warning.code === 'EVAL') return
             warn(warning)
