@@ -1,1 +1,4 @@
 .husky/* linguist-vendored
+*.ts linguist-language=TypeScript
+*.tsx linguist-language=React
+*.vue linguist-language=Vue
